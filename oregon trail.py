@@ -21,7 +21,7 @@ if play == "yes":
     while play2 != "yes" :
         play2=input("Understand?")
     while family > 0 and ox >0:
-        event=4
+        event=1
         #event = random.randint(1,20)# 
         
         
@@ -33,7 +33,7 @@ if play == "yes":
                 print("The ox approaches and joins your team. +1 Ox -3 food")
                 ox += 1
                 food -=3
-            if choice == "risk":
+            elif choice == "risk":
                 risk=random.randint(1,2)
                 if risk == 1:
                     print("The ox gets violent and one of you are killed, the ox gets away -1 family")
@@ -41,13 +41,13 @@ if play == "yes":
                 else:
                     print("You manage to catch the ox, what a relief")
                     ox +=1
-            if choice == "ignore":
+            elif choice == "ignore":
                 print("You figure it was best to leave the ox alone, time to carry on the trail")
             else:
                 print("You stand there staring at the ox, it takes this as a sign of violence (-1 family)")
                 family -=1
         
-        if event == 2:
+        elif event == 2:
             print("An ox is roaming the fields, you can bait it with food if you want (-3 food) or you can try to catch it but it seems risky (-1 family if failure) but you could ignore it")
             choice=input("bait / risk / ignore")
             
@@ -55,7 +55,7 @@ if play == "yes":
                 print("The ox approaches and joins your team. +1 Ox -3 food")
                 ox += 1
                 food -=3
-            if choice == "risk":
+            elif choice == "risk":
                 risk=random.randint(1,2)
                 if risk == 1:
                     print("The ox gets violent and one of you are killed, the ox gets away -1 family")
@@ -63,13 +63,13 @@ if play == "yes":
                 else:
                     print("You manage to catch the ox, what a relief")
                     ox +=1
-            if choice == "ignore":
+            elif choice == "ignore":
                 print("You figure it was best to leave the ox alone, time to carry on the trail")
             else:
                 print("You stand there staring at the ox, it takes this as a sign of violence (-1 family)")
                 family -=1
         
-        if event == 3:
+        elif event == 3:
             print("An ox is roaming the fields, you can bait it with food if you want (-3 food) or you can try to catch it but it seems risky (-1 family if failure) but you could ignore it")
             choice=input("bait / risk / ignore")
             
@@ -77,7 +77,7 @@ if play == "yes":
                 print("The ox approaches and joins your team. +1 Ox -3 food")
                 ox += 1
                 food -=3
-            if choice == "risk":
+            elif choice == "risk":
                 risk=random.randint(1,2)
                 if risk == 1:
                     print("The ox gets violent and one of you are killed, the ox gets away -1 family")
@@ -85,13 +85,13 @@ if play == "yes":
                 else:
                     print("You manage to catch the ox, what a relief")
                     ox +=1
-            if choice == "ignore":
+            elif choice == "ignore":
                 print("You figure it was best to leave the ox alone, time to carry on the trail")
             else:
                 print("You stand there staring at the ox, it takes this as a sign of violence (-1 family)")
                 family -=1
         
-        if event == 4:
+        elif event == 4:
             print("Theres another traveller along the path. we could try to rob them?")
             rob=input("Rob (high risk but high reward) Ignore (Nothing) Talk (something could happen?) Trade (anything could happen)")
             
@@ -103,38 +103,110 @@ if play == "yes":
                     if rob2 == "ox":
                         print("The ox pulls their trailer now...")
                         ox -=1
-                    if rob2 == "food":
+                    elif rob2 == "food":
                         print("They took the food and left...")
                         food -= 5
-                    if rob2 == "people":
+                    elif rob2 == "people":
                         print("They're gone...")
                         family -= 2
                     else:
                         print("We ignored them...they took some hostages (-2 people)")
                         family -=2
-            if rob == "ignore":
+                else:
+                    print("They gave us some food  +5 Food")
+                    food+=5
+            if rob == "Ignore":
                 print("It was best to leave them alone")
             if rob =="Talk":
                 print("We approach the traveller...he threatens us with weapons and tells us to get away. Good idea we didn't rob him")
-                                
-
-
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
+            if rob == "Trade":
+                trade = random.randint(1,4)
+                if trade == 1:
+                    print("They have nothing to trade")
+                elif trade == 2:
+                    trade2=input("They offer 8 food for 1 ox")
+                    if trade2 =="yes":
+                        print("+8 food / -1 ox")
+                        ox -=1 
+                        food+=8
+                    else:
+                        print("We chose not to trade")
+                elif trade == 3:
+                    trade2=input("they offer 1 ox for 8 food")
+                    if trade2 == "yes":
+                        print("+1 ox / -8 food")
+                        ox +=1 
+                        food -= 8
+                    else:
+                        print("That was a bad trade anyway")
+                else:
+                    trade2=input("They offer to join your team for 5 food")
+                    if trade2 == "yes":
+                        print("The traveller joins your team! +1 family / -5 food")
+                        food-=5
+                        family+=1    
+                    else:
+                        print("We can't afford to feed another person") 
+            else:
+                print("they didn't seem to notice us")
+        elif event == 5:
+            print("Theres another traveller along the path. we could try to rob them?")
+            rob=input("Rob (high risk but high reward) Ignore (Nothing) Talk (something could happen?) Trade (anything could happen)")
+            
+            if rob == "Rob":
+                risk=random.randint(1,4)
+                if risk == 1 or risk == 2 or risk == 3:
+                    print("The traveller had weapons and now they're holding us hostage, how the tables have turned")
+                    rob2=input("There are 3 options ... -2 people (people) / -5 food (food) / -1 ox (ox) ")
+                    if rob2 == "ox":
+                        print("The ox pulls their trailer now...")
+                        ox -=1
+                    elif rob2 == "food":
+                        print("They took the food and left...")
+                        food -= 5
+                    elif rob2 == "people":
+                        print("They're gone...")
+                        family -= 2
+                    else:
+                        print("We ignored them...they took some hostages (-2 people)")
+                        family -=2
+                else:
+                    print("They gave us some food  +5 Food")
+                    food+=5
+            if rob == "Ignore":
+                print("It was best to leave them alone")
+            if rob =="Talk":
+                print("We approach the traveller...he threatens us with weapons and tells us to get away. Good idea we didn't rob him")
+            if rob == "Trade":
+                trade = random.randint(1,4)
+                if trade == 1:
+                    print("They have nothing to trade")
+                elif trade == 2:
+                    trade2=input("They offer 8 food for 1 ox")
+                    if trade2 =="yes":
+                        print("+8 food / -1 ox")
+                        ox -=1 
+                        food+=8
+                    else:
+                        print("We chose not to trade")
+                elif trade == 3:
+                    trade2=input("they offer 1 ox for 8 food")
+                    if trade2 == "yes":
+                        print("+1 ox / -8 food")
+                        ox +=1 
+                        food -= 8
+                    else:
+                        print("That was a bad trade anyway")
+                else:
+                    trade2=input("They offer to join your team for 5 food")
+                    if trade2 == "yes":
+                        print("The traveller joins your team! +1 family / -5 food")
+                        food-=5
+                        family+=1    
+                    else:
+                        print("We can't afford to feed another person")           
+        else:
+            print("no")
         
         
         time.sleep(3)

@@ -10,6 +10,7 @@ distance = 100
 day=1
 play2=0
 visits =0
+cooldown=0
 print("THE OREGON TRAIL")
 play=input("Ready to play? : ")
 if play == "yes":
@@ -17,7 +18,7 @@ if play == "yes":
     print("the game has begun")
     #time.sleep(2)
     os.system("CLS")
-    print("You have",family,"members, each eats 1 food a day")
+    print("You have family members, each eats 1 food a day")
     print("You have",ox,"each one pulls the wagon, you can kill an ox for 5 food, this option appears after you run out of food")
     print("You have",food,"food, each family member eats 1 food a day")
     #time.sleep(6)
@@ -28,38 +29,38 @@ if play == "yes":
         
 
 
-        if family == 1:
+        if family == 1 and cooldown ==0:
             if food > 7:
                 event=12
             else:
-                event=random.randint(1,11)
-        elif family == 2:
+                event=random.randint(1,14)
+        elif family == 2 and cooldown ==0:
             if food >10:
                 event=12
             else:
-                event=random.randint(1,11)
-        elif family == 3:
+                event=random.randint(1,14)
+        elif family == 3 and cooldown ==0:
             if food >15:
                 event=12
             else:
-                event=random.randint(1,11)
-        elif family == 4:
+                event=random.randint(1,14)
+        elif family == 4 and cooldown ==0:
             if food > 24:
                 event=12
             else:
-                event=random.randint(1,11)
-        elif family > 4:
+                event=random.randint(1,14)
+        elif family > 4 and cooldown ==0:
             if food> 30:
                 event=12
             else:
-                event=random.randint(1,11)
+                event=random.randint(1,14)
         else:
-            event=random.randint(1,11)
+            event=random.randint(1,14)
         
         
         if event == 1:
-            print("An ox is roaming the fields, you can bait it with food if you want (-3 food) or you can try to catch it but it seems risky (-1 family if failure) but you could ignore it")
-            choice=input("bait / risk / ignore")
+            print("An ox is roaming the fields, you can bait it with food if you want (-3 food) or you can try to catch it but it seems risky (-1 family if failure) but you could (hunt) it for 3 food")
+            choice=input("bait / risk / ignore / hunt")
             
             if choice == "bait":
                 print("The ox approaches and joins your team. +1 Ox -3 food")
@@ -75,13 +76,16 @@ if play == "yes":
                     ox +=1
             elif choice == "ignore":
                 print("You figure it was best to leave the ox alone, time to carry on the trail")
+            elif choice == "hunt":
+                print("the ox was easily killed and harvested +3 food" )
+                food += 3
             else:
                 print("You stand there staring at the ox, it takes this as a sign of violence (-1 family)")
                 family -=1
         
         elif event == 2:
-            print("An ox is roaming the fields, you can bait it with food if you want (-3 food) or you can try to catch it but it seems risky (-1 family if failure) but you could ignore it")
-            choice=input("bait / risk / ignore")
+            print("An ox is roaming the fields, you can bait it with food if you want (-3 food) or you can try to catch it but it seems risky (-1 family if failure) but you could (hunt) it for 3 food")
+            choice=input("bait / risk / ignore / hunt")
             
             if choice == "bait":
                 print("The ox approaches and joins your team. +1 Ox -3 food")
@@ -97,12 +101,15 @@ if play == "yes":
                     ox +=1
             elif choice == "ignore":
                 print("You figure it was best to leave the ox alone, time to carry on the trail")
+            elif choice == "hunt":
+                print("the ox was easily killed and harvested +3 food" )
+                food += 3
             else:
                 print("You stand there staring at the ox, it takes this as a sign of violence (-1 family)")
                 family -=1
         
         elif event == 3:
-            print("An ox is roaming the fields, you can bait it with food if you want (-3 food) or you can try to catch it but it seems risky (-1 family if failure) but you could ignore it")
+            print("An ox is roaming the fields, you can bait it with food if you want (-3 food) or you can try to catch it but it seems risky (-1 family if failure) but you could (hunt) it for 3 food")
             choice=input("bait / risk / ignore")
             
             if choice == "bait":
@@ -119,6 +126,9 @@ if play == "yes":
                     ox +=1
             elif choice == "ignore":
                 print("You figure it was best to leave the ox alone, time to carry on the trail")
+            elif choice == "hunt":
+                print("the ox was easily killed and harvested +3 food" )
+                food += 3
             else:
                 print("You stand there staring at the ox, it takes this as a sign of violence (-1 family)")
                 family -=1
@@ -245,7 +255,7 @@ if play == "yes":
                 print("They wake up and are thankful for the help +1 family / -2 food")
                 family += 1
                 food -= 2
-                robber = 1
+                robber = random.randint(1,3)
                 if robber == 1:
                     robberhere = True
                     
@@ -364,11 +374,24 @@ if play == "yes":
                     visits +=1
 #EVENT 8#
         elif event == 11:
-            backpack = random.randint(1,15)
+            
+            if family == 1:
+                backpack=random.randint(1,5)
+            elif family == 2:
+                backpack=random.randint(2,7)
+            elif family==3:
+                backpack=random.randint(4,8)
+            elif family ==4:
+                backpack=random.randint(6,10)
+            else:
+                backpack=random.randint(6,12)
             print("There is a backpack on the road there is", backpack,"food inside")
             take=input("take or ignore? There could be expired food in there")
             if take == "take":
-                expire=random.randint(1,3)
+                if food < family:
+                    expire=3
+                else:
+                    expire=random.randint(1,3)
                 if expire == 1 or expire == 2:
                     print("The food was expired -1 family")
                     family -=1
@@ -383,28 +406,39 @@ if play == "yes":
             time.sleep(2)
             print("It's robin hood!")
             time.sleep(2)
-            if family == 1:
-                if food > 7:
-                    food=7
-                    print("We lost some food...")
-            elif family == 2:
-                if food >10:
-                    food=10
-                    print("We lost some food...")
-            elif family == 3:
-                if food >15:
-                    food=15
-                    print("We lost some food...")
-            elif family == 4:
-                if food > 24:
-                    food=24
-                    print("We lost some food...")
-            elif family > 4:
-                if food> 30:
-                    food=30
-                    print("We lost some food...")
+            fight=input("should we (fight) back or let him in")
+            if fight == "fight" and cooldown ==0:
+                print("We'll try our best")
+                death = random.randint(0,1)
+                print("We lost",death,"family members, he won't be back for 3 days")
+                family-=death
+                cooldown=3
             else:
-                print("error")
+                if cooldown == 0:
+                    if family == 1:
+                        if food > 7:
+                            food=7
+                            print("We lost some food...")
+                    elif family == 2:
+                        if food >10:
+                            food=10
+                            print("We lost some food...")
+                    elif family == 3:
+                        if food >15:
+                            food=15
+                            print("We lost some food...")
+                    elif family == 4:
+                        if food > 24:
+                            food=24
+                            print("We lost some food...")
+                    elif family > 4:
+                        if food> 30:
+                            food=30
+                            print("We lost some food...")
+                    else:
+                        print("error")
+                else:
+                    print("When we opened the doors he recognised us and ran off")
 #EVENT 10#
         elif event ==13:
             print("We're pretty sure one of our ox are sick. We could leave it behind?")
@@ -422,6 +456,17 @@ if play == "yes":
                     print("Turns out the ox was fine, in fact it seemed faster than usual -5 meters")
                     distance-=5
 #EVENT 11#
+        elif event ==14:
+            print("Theres a salesman walking past us")
+            print("He offers us 10 food for 1 person, seems a bit sketchy")
+            trade=input("accept or deny")
+            if trade == "accept":
+                print("Seems a bit psychopathic but alright +10 food / -1 family")
+                food += 10
+                family -=10
+
+                
+
 
 
 
@@ -496,7 +541,7 @@ if play == "yes":
                     print("There are",family,"family members left")
                     food=0
             time.sleep(3)
-            if ox != 0:
+            if ox != 0 and family > 0:
                 day+=1
                 os.system("CLS")
                 print("You fall asleep for the night...")
@@ -517,10 +562,23 @@ if play == "yes":
                 print("DAY",day)
                 distance -= ox*2
                 print("there is",distance,"m left")
+                if cooldown > 0:
+                    cooldown -=1
+                    if cooldown == 0:
+                        print("We found an arrow in our trailer...")
+                        time.sleep(2)
+                
             else:
-                print("You can't continue with no ox. This is the end")
+                if ox <= 0:
+                    print("You can't carry on with no ox")
+                    print("There were",distance,"Meters left")
+                elif people <= 0:
+                    print("There were",distance,"Meters left")
+                    print("There is nobody left...")
+
         else:
             print("There is nobody left...")
+            print("There were",distance,"Meters left")
             
 
 

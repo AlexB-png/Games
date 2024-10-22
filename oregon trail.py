@@ -5,7 +5,8 @@ import time
 robberhere=False
 ox=3
 food=20
-family=4
+family = 0
+distance = 100
 day=1
 play2=0
 visits =0
@@ -22,9 +23,38 @@ if play == "yes":
     #time.sleep(6)
     while play2 != "yes" :
         play2=input("Understand?")
+    family = int(input("How many of your family should you bring?"))
     while family > 0 and ox >0:
-        event=10
-        #event = random.randint(1,20)# 
+        
+
+
+        if family == 1:
+            if food > 7:
+                event=12
+            else:
+                event=random.randint(1,11)
+        elif family == 2:
+            if food >10:
+                event=12
+            else:
+                event=random.randint(1,11)
+        elif family == 3:
+            if food >15:
+                event=12
+            else:
+                event=random.randint(1,11)
+        elif family == 4:
+            if food > 24:
+                event=12
+            else:
+                event=random.randint(1,11)
+        elif family > 4:
+            if food> 30:
+                event=12
+            else:
+                event=random.randint(1,11)
+        else:
+            event=random.randint(1,11)
         
         
         if event == 1:
@@ -273,7 +303,7 @@ if play == "yes":
         elif event == 9:
             present=True
             print("Theres a disease going round. We think its dysentery")
-            diseased= random.randint(0,2)
+            diseased= random.randint(0,family-1)
             while present == True:
                 if family > 0:
                     execution=int(input("How many people should we `leave behind`"))
@@ -302,7 +332,7 @@ if play == "yes":
 #EVENT 7#
 
         elif event ==10:
-            print("Theres a house coming up. We could ask if they could help us?")
+            print("Theres a house coming up. We could ask if they could help us? we have been there",visits,"times now")
             knock = input("ask / ignore")
             if knock == "ask":
                 print("We knock on the door")
@@ -332,7 +362,67 @@ if play == "yes":
                     print("The man looks angry, we all begin to run but he was faster. -1 family")
                     family -=1
                     visits +=1
-            
+#EVENT 8#
+        elif event == 11:
+            backpack = random.randint(1,15)
+            print("There is a backpack on the road there is", backpack,"food inside")
+            take=input("take or ignore? There could be expired food in there")
+            if take == "take":
+                expire=random.randint(1,3)
+                if expire == 1 or expire == 2:
+                    print("The food was expired -1 family")
+                    family -=1
+                else:
+                    print("The food was safe +",backpack,"food")
+                    food += backpack
+            else:
+                print("We didn't know the condition of the food")
+#EVENT 9#
+        elif event == 12:
+            print("There's someone knocking claiming to take from the rich and give to the poor")
+            time.sleep(2)
+            print("It's robin hood!")
+            time.sleep(2)
+            if family == 1:
+                if food > 7:
+                    food=7
+                    print("We lost some food...")
+            elif family == 2:
+                if food >10:
+                    food=10
+                    print("We lost some food...")
+            elif family == 3:
+                if food >15:
+                    food=15
+                    print("We lost some food...")
+            elif family == 4:
+                if food > 24:
+                    food=24
+                    print("We lost some food...")
+            elif family > 4:
+                if food> 30:
+                    food=30
+                    print("We lost some food...")
+            else:
+                print("error")
+#EVENT 10#
+        elif event ==13:
+            print("We're pretty sure one of our ox are sick. We could leave it behind?")
+            leave = input("leave or ignore")
+            if leave == "leave":
+                print("It was for the best we let the ox run free -1 ox")
+            else:
+                print("We think the ox is fine")
+                time.sleep(3)
+                chance=random.randint(1,2)
+                if chance == 1:
+                    print("Turns out the ox was sick, we lost some progress +5 meters")
+                    distance +=5
+                else:
+                    print("Turns out the ox was fine, in fact it seemed faster than usual -5 meters")
+                    distance-=5
+#EVENT 11#
+
 
 
 
@@ -384,38 +474,54 @@ if play == "yes":
             print("Your",family,"family members eat 1 food each")
             print("-",family,"food")
             food -= family
-            while food <0 and family > 0:
+            print("You now have",food,"food left")
+            
+            
+            while food <0 and family > 0 and ox > 0:
                 print("You are out of food, there is only one option")
                 debt=food * -1
+                print(debt)
                 execute = input("Execute the ox.")
                 if execute == "yes":
-                    if ox >= 1:
-                        ox -= 1
-                        food +=5
-                    else:
-                        print("You have no ox left, this is the end for you. It will be a miracle if you survive the STARVATION")
+                    food += 5
+                    ox -= 1
+                    os.system("CLS")
                 else:
+                    os.system("CLS")
                     print("You didn't choose to sacrifice the ox? I guess they mean more to you than your family")
+                    time.sleep(2)
                     print(debt,"family members will die for your negligence")
                     family -= debt
+                    time.sleep(1)
                     print("There are",family,"family members left")
+                    food=0
             time.sleep(3)
-            day+=1
-            os.system("CLS")
-            print("You fall asleep for the night...")
-            
-            time.sleep(2)
-            
-            if robberhere==True:
-                print("The man we saved was a thief! We found him missing this morning. -1 family")
-                family -= 1
-                time.sleep(3)
-            
-            
-            os.system("CLS")
-            print("DAY",day)
+            if ox != 0:
+                day+=1
+                os.system("CLS")
+                print("You fall asleep for the night...")
+                
+                time.sleep(2)
+                
+                if robberhere==True:
+                    print("The man we saved was a thief! We found him missing this morning. -1 family")
+                    family -= 1
+                    time.sleep(3)
+                
+                if distance <= 0:
+                    print("You finally made it to the end!")
+                    for i in range(0,1000000):
+                        temp=input("")
+                
+                os.system("CLS")
+                print("DAY",day)
+                distance -= ox*2
+                print("there is",distance,"m left")
+            else:
+                print("You can't continue with no ox. This is the end")
         else:
             print("There is nobody left...")
+            
 
 
 

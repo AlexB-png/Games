@@ -110,7 +110,7 @@ if play == "yes":
         
         elif event == 3:
             print("An ox is roaming the fields, you can bait it with food if you want (-3 food) or you can try to catch it but it seems risky (-1 family if failure) but you could (hunt) it for 3 food")
-            choice=input("bait / risk / ignore")
+            choice=input("bait / risk / ignore / hunt")
             
             if choice == "bait":
                 print("The ox approaches and joins your team. +1 Ox -3 food")
@@ -463,7 +463,7 @@ if play == "yes":
             if trade == "accept":
                 print("Seems a bit psychopathic but alright +10 food / -1 family")
                 food += 10
-                family -=10
+                family -=1 
 
                 
 
@@ -482,33 +482,7 @@ if play == "yes":
 
         else:
             print("no")
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
+
         time.sleep(3)
         os.system("CLS")
         print("You have",family,"family members")

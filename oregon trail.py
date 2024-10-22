@@ -2,6 +2,7 @@ import random
 import os
 from os import system
 import time
+
 robberhere=False
 ox=3
 food=20
@@ -10,7 +11,7 @@ distance = 100
 day=1
 play2=0
 visits =0
-cooldown=0
+cooldown=1
 print("THE OREGON TRAIL")
 play=input("Ready to play? : ")
 if play == "yes":
@@ -19,7 +20,7 @@ if play == "yes":
     #time.sleep(2)
     os.system("CLS")
     print("You have family members, each eats 1 food a day")
-    print("You have",ox,"each one pulls the wagon, you can kill an ox for 5 food, this option appears after you run out of food")
+    print("You have",ox,"ox each one pulls the wagon, you can kill an ox for 5 food, this option appears after you run out of food")
     print("You have",food,"food, each family member eats 1 food a day")
     #time.sleep(6)
     while play2 != "yes" :
@@ -33,29 +34,29 @@ if play == "yes":
             if food > 7:
                 event=12
             else:
-                event=random.randint(1,14)
+                event=random.randint(1,18)
         elif family == 2 and cooldown ==0:
             if food >10:
                 event=12
             else:
-                event=random.randint(1,14)
+                event=random.randint(1,18)
         elif family == 3 and cooldown ==0:
             if food >15:
                 event=12
             else:
-                event=random.randint(1,14)
+                event=random.randint(1,18)
         elif family == 4 and cooldown ==0:
             if food > 24:
                 event=12
             else:
-                event=random.randint(1,14)
+                event=random.randint(1,18)
         elif family > 4 and cooldown ==0:
             if food> 30:
                 event=12
             else:
-                event=random.randint(1,14)
+                event=random.randint(1,18)
         else:
-            event=random.randint(1,14)
+            event=random.randint(1,18)
         
         
         if event == 1:
@@ -464,8 +465,55 @@ if play == "yes":
                 print("Seems a bit psychopathic but alright +10 food / -1 family")
                 food += 10
                 family -=1 
+#EVENT 12#
+        elif event ==15:
+            print("Theres some spiders in our trailer. Are they friendly?")
+            spider=input("ignore or kill")
+            if spider == "ignore":
+                print("We decided that they were fine to come along with us.")
+                poison = random.randint(1,5)
+                if poison == 5:
+                    print("What's that hourglass on it's back?")
+                    fammily = 0
+                else:
+                    print("We don't see any strange signs on the spiders.")
+            else:
+                print("We can't have these spiders in the trailer")
+                print("We used some poison to kill them -1 family")
+                family -=1
+#EVENT 13#
+        elif event == 16:
+            print("There is a dog that cam running up to us")
+            dog = input("We could feed the dog? -1 food")
+            if dog =="yes":
+                print("We chose to feed the dog")
+                dog2=random.randint(0,3)
+                print("The dog came back with",dog2,"cans of food")
+                food += dog2
+            else:
+                print("We left the dog alone, probably had rabies or something")
+#EVENT 14#
+        elif event ==17:
+            print("We hear an explosion in the distance")
+            nuclear = True
+#EVENT 14+#
+        elif event ==18 and nuclear == True:
+            print("We come across a large crater, possibly related to the large exlosion")
+            investigate=input("Investigate the hole?")
+            if investigate=="yes":
+                radiation=random.randint(1,3)
+                if radiation==1:
+                    print("We were ambushed by some radioactive spiders... -1 family")
+                    family-=1
+                else:
+                    print("We found some uranium? a merchant at the top offered 20 food for it")
+                    food+=20
+            else:
+                print("We shouldn't go near the radioactive fallout")
 
-                
+
+
+
 
 
 

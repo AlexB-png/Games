@@ -2,7 +2,7 @@ import random
 import os
 from os import system
 import time
-
+nuclear = False
 robberhere=False
 ox=3
 food=20
@@ -57,7 +57,7 @@ if play == "yes":
                 event=random.randint(1,18)
         else:
             event=random.randint(1,18)
-        
+       
         
         if event == 1:
             print("An ox is roaming the fields, you can bait it with food if you want (-3 food) or you can try to catch it but it seems risky (-1 family if failure) but you could (hunt) it for 3 food")
@@ -473,12 +473,14 @@ if play == "yes":
                 print("We decided that they were fine to come along with us.")
                 poison = random.randint(1,5)
                 if poison == 5:
+                    os.sleep(3)
                     print("What's that hourglass on it's back?")
-                    fammily = 0
+                    family = 0
                 else:
                     print("We don't see any strange signs on the spiders.")
             else:
                 print("We can't have these spiders in the trailer")
+                os.sleep(3)
                 print("We used some poison to kill them -1 family")
                 family -=1
 #EVENT 13#
@@ -594,7 +596,7 @@ if play == "yes":
                 if ox <= 0:
                     print("You can't carry on with no ox")
                     print("There were",distance,"Meters left")
-                elif people <= 0:
+                elif family <= 0:
                     print("There were",distance,"Meters left")
                     print("There is nobody left...")
 

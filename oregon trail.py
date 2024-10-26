@@ -594,7 +594,7 @@ if play == "yes":
                 if ox <= 0:
                     print("You can't carry on with no ox")
                     print("There were",distance,"Meters left")
-                elif people <= 0:
+                elif family <= 0:
                     print("There were",distance,"Meters left")
                     print("There is nobody left...")
 
